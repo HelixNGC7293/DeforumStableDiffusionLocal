@@ -5,9 +5,10 @@
 # Deforum Stable Diffusion Local Version
 Local version of Deforum Stable Diffusion V0.4, supports txt settings file input and animation features!
 
-- **[Stable Diffusion](https://github.com/CompVis/stable-diffusion) by Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, Björn Ommer and the [Stability.ai](https://stability.ai/) Team. 
+- **[Stable Diffusion](https://github.com/CompVis/stable-diffusion) by Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, Björn Ommer and the [Stability.ai](https://stability.ai/) Team.**
 - **[K Diffusion](https://github.com/crowsonkb/k-diffusion) by [Katherine Crowson](https://twitter.com/RiversHaveWings).** 
 - **Notebook by [deforum](https://discord.com/invite/upmXXsrwZc)**
+
 - **Local Version by [DGSpitzer](https://www.youtube.com/channel/UCzzsYBF4qwtMwJaPJZ5SuPg) [大谷的游戏创作小屋](https://space.bilibili.com/176003)**
 - **Special Thanks to [VIVY Has A Dream](https://github.com/vivyhasadream) for all the help!**
 
@@ -67,7 +68,7 @@ python run.py --enable_animation_mode --settings "./examples/runSettings_Animati
 python run.py --settings "./examples/runSettings_Mask.txt"
 ```
 ![example](examples/MaskExampleDisplay.png)
-[Original Painting Page on Artstation](https://www.artstation.com/artwork/yVyG3)
+[Original Painting on Artstation](https://www.artstation.com/artwork/yVyG3)
 
 **The output results will be available at `./output` folder.**
 
