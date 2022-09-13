@@ -47,8 +47,12 @@ There should be another extra model which will be downloaded into ./pretrained f
 
 
 ## How to use it?
+The running command should looks like this:
+```
+python run.py --enable_animation_mode --settings "./runSettings_Template.txt"
+```
 
-After installation you can try out this three demo to see if the code is working
+After installation you can try out following examples to see if the code is working
 - 1. For generate still images:
 ```
 python run.py --settings "./examples/runSettings_StillImages.txt"
