@@ -47,7 +47,7 @@ python setup.py
 
 **Additionally, you should put `dpt_large-midas-2f21e586.pt` on the `./models` folder as well, [the download link is here](https://github.com/intel-isl/DPT/releases/download/1_0/dpt_large-midas-2f21e586.pt)**
 
-There should be another extra model which will be downloaded into ./pretrained folder at first time running
+**There should be another extra file `AdaBins_nyu.pt` which should be downloaded into ./pretrained folder, [the download link is here](https://cloudflare-ipfs.com/ipfs/Qmd2mMnDLWePKmgfS8m6ntAg4nhV5VkUyAydYBp8cWWeB7/AdaBins_nyu.pt)**
 
 
 ## How to use it?
