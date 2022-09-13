@@ -13,8 +13,9 @@ Local version of Deforum Stable Diffusion V0.4, supports txt settings file input
 ![example](examples/example1.gif)
 ![example](examples/example2.gif)
 ![example](examples/example3.gif)
+[![example video](https://img.youtube.com/vi/DCJm61yQ4_g/0.jpg)](https://www.youtube.com/watch?v=DCJm61yQ4_g)
 
-Made this quick local Windows version mostly based on the Colab code by deforum.
+Made this quick local Windows version mostly based on the Colab code by deforum, which supports very cool turbo mode animation output for Stable Diffusion!
 
 As an artist and Unity game designer, I may not very familiar with Python code, so let me know whether there is any improvement for this project!
 
