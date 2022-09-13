@@ -10,6 +10,8 @@ Local version of Deforum Stable Diffusion V0.4, supports txt settings file input
 - **Local Version by [DGSpitzer](https://www.youtube.com/channel/UCzzsYBF4qwtMwJaPJZ5SuPg) [大谷的游戏创作小屋](https://space.bilibili.com/176003)**
 - **Special Thanks to VIVY Has A Dream for all the help!**
 
+![maskExample](assets/examples/MaskExampleDisplay.png)
+
 Made this quick local Windows version mostly based on the Colab code by deforum.
 
 As an artist and Unity game designer, I may not very familiar with Python code, so let me know whether there is any improvement for this project!
