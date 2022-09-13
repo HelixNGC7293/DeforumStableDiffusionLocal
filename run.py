@@ -1,4 +1,4 @@
-#Deforum Stable Diffusion v0.3
+#Deforum Stable Diffusion v0.4
 #Stable Diffusion by Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, Björn Ommer and the Stability.ai Team. K Diffusion by Katherine Crowson. You need to get the ckpt file and put it on your Google Drive first to use this. It can be downloaded from HuggingFace.
 
 #Notebook by deforum

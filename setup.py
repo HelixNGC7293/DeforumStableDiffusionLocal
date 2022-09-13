@@ -5,12 +5,14 @@ print_subprocess = False #@param {type:"boolean"}
 
 if setup_environment:
     import subprocess, time
+    import os
     print("Setting up environment...")
     start_time = time.time()
+    os.system("conda install git -y")
+    os.system("conda install -c conda-forge opencv -y")
+    print("Setting up environment part2...")
     all_process = [
         ['pip', 'install', 'torch==1.12.1+cu113', 'torchvision==0.13.1+cu113', '--extra-index-url', 'https://download.pytorch.org/whl/cu113'],
-        ['conda', 'install', 'git'],
-        ['conda', 'install', '-c', 'conda-forge', 'opencv', '-y'],
         ['pip', 'install', 'omegaconf==2.2.3', 'einops==0.4.1', 'pytorch-lightning==1.7.4', 'torchmetrics==0.9.3', 'torchtext==0.13.1', 'transformers==4.21.2', 'kornia==0.6.7'],
         ['git', 'clone', 'https://github.com/deforum/stable-diffusion'],
         ['pip', 'install', '-e', 'git+https://github.com/CompVis/taming-transformers.git@master#egg=taming-transformers'],
