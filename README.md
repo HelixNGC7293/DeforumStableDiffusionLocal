@@ -24,7 +24,7 @@ Made this quick local Windows version mostly based on the Colab code by deforum,
 
 As an artist and Unity game designer, I may not very familiar with Python code, so let me know whether there is any improvement for this project!
 
-It's tested working on Windows 10 with 2080super and 3090 GPU (it runs somehow much faster on my local 3090 then Colab..), **I haven't tested it on Mac though.**
+It's tested working on Windows 10 with RTX 2080 SUPER and RTX 3090 GPU (it runs somehow much faster on my local 3090 then Colab..), **I haven't tested it on Mac though.**
 
 ## Installation
 
@@ -43,7 +43,7 @@ python setup.py
 
 **You need to get the ckpt file and put it on the ./models folder first to use this. It can be downloaded from [HuggingFace](https://huggingface.co/CompVis/stable-diffusion).**
 
-There should be another extra model will be downloaded into ./pretrain folder at first time running
+There should be another extra model which will be downloaded into ./pretrained folder at first time running
 
 
 ## How to use it?
@@ -63,7 +63,7 @@ python run.py --settings "./examples/runSettings_Mask.txt"
 ```
 ![example](examples/MaskExampleDisplay.png)
 
-All the needed variables are set in the txt file (You can refer to the [Colab](https://colab.research.google.com/github/deforum/stable-diffusion/blob/main/Deforum_Stable_Diffusion.ipynb) page for definition of all the variables), you can have many of settings files for different tasks. There is a template file called `runSettings_Template.txt`. You can create your own txt settings file as well.
+All the needed variables & prompts for Deforum Stable Diffusion are set in the txt file (You can refer to the [Colab](https://colab.research.google.com/github/deforum/stable-diffusion/blob/main/Deforum_Stable_Diffusion.ipynb) page for definition of all the variables), you can have many of settings files for different tasks. There is a template file called `runSettings_Template.txt`. You can create your own txt settings file as well.
 
 
 That's it! 
