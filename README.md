@@ -2,17 +2,13 @@
 ![visitors](https://visitor-badge.glitch.me/badge?page_id=deforum_sd_local_repo)
 [![Replicate](https://replicate.com/deforum/deforum_stable_diffusion/badge)](https://replicate.com/deforum/deforum_stable_diffusion)
 
-# DeforumStableDiffusionLocal
+# Deforum Stable Diffusion Local Version
 Local version of Deforum Stable Diffusion V0.4, supports txt settings file input and animation features!
 
-
-**[Stable Diffusion](https://github.com/CompVis/stable-diffusion) by Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, Björn Ommer and the [Stability.ai](https://stability.ai/) Team. [K Diffusion](https://github.com/crowsonkb/k-diffusion) by [Katherine Crowson](https://twitter.com/RiversHaveWings).** 
-
-**Notebook by [deforum](https://discord.com/invite/upmXXsrwZc)**
-
-**Local Version by [DGSpitzer](https://www.youtube.com/channel/UCzzsYBF4qwtMwJaPJZ5SuPg) [大谷的游戏创作小屋](https://space.bilibili.com/176003)**
-
-**Special Thanks to VIVY Has A Dream for all the help!**
+- **[Stable Diffusion](https://github.com/CompVis/stable-diffusion) by Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, Björn Ommer and the [Stability.ai](https://stability.ai/) Team. [K Diffusion](https://github.com/crowsonkb/k-diffusion) by [Katherine Crowson](https://twitter.com/RiversHaveWings).** 
+- **Notebook by [deforum](https://discord.com/invite/upmXXsrwZc)**
+- **Local Version by [DGSpitzer](https://www.youtube.com/channel/UCzzsYBF4qwtMwJaPJZ5SuPg) [大谷的游戏创作小屋](https://space.bilibili.com/176003)**
+- **Special Thanks to VIVY Has A Dream for all the help!**
 
 Made this quick local Windows version mostly based on the Colab code by deforum.
 
@@ -43,15 +39,15 @@ There should be another extra model will be downloaded into ./pretrain folder at
 ## How to use it?
 
 After installation you can try out this three demo to see if the code is working
-- 1.For generate still images:
+- 1. For generate still images:
 ```
 python run.py --settings "./examples/runSettings_StillImages.txt"
 ```
-- 2.For animation feature, you need to add `--enable_animation_mode` to enable animation settings in text file:
+- 2. For animation feature, you need to add `--enable_animation_mode` to enable animation settings in text file:
 ```
 python run.py --enable_animation_mode --settings "./examples/runSettings_Animation.txt"
 ```
-- 3.For mask feature:
+- 3. For mask feature:
 ```
 python run.py --settings "./examples/runSettings_Mask.txt"
 ```
