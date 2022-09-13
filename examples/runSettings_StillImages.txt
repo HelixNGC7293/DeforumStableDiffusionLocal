@@ -1,0 +1,25 @@
+{
+    "batch_name":"Example_DGSpitzer",
+    "n_batch":5,
+    "prompts":[
+        "a scifi utopian temple, future perfect, award winning digital by bruce pennington art",
+        "a techno - spiritual utopian planet, perfect future, award winning art by vincent di fate"
+    ],
+    "width":512,
+    "height":512,
+    "seed":-1,
+    "seed_behavior":"iter",
+    "sampler":"klms",
+    "steps":50,
+    "scale":7,
+    "ddim_eta":0.0,
+    "filename_format":"{timestring}_{index}_{prompt}.png",
+    "steps":50,
+    "use_init":false,
+    "init_image":"",
+    "strength":0.0,
+    "use_mask":false,
+    "use_alpha_as_mask":false,
+    "invert_mask":false,
+    "mask_file":""
+}

@@ -1,0 +1,26 @@
+{
+    "batch_name":"Example_DGSpitzer",
+    "n_batch":1,
+    "prompts":[
+        "a beaufiful young girl holding a flower, art by huang guangjian and gil elvgren and sachin teng,  trending on artstation",
+        "a beaufiful young girl holding a flower, art by huang guangjian and gil elvgren and sachin teng,  trending on artstation",
+        "a beaufiful young girl holding a flower, art by greg rutkowski and alphonse mucha,  trending on artstation"
+    ],
+    "width":704,
+    "height":704,
+    "seed":43534536,
+    "seed_behavior":"iter",
+    "sampler":"klms",
+    "steps":50,
+    "scale":7,
+    "ddim_eta":0.0,
+    "filename_format":"{timestring}_{index}_{prompt}.png",
+    "steps":50,
+    "use_init":true,
+    "init_image":"./input/EddyViolet by DGSpitzer.png",
+    "strength":0.2,
+    "use_mask":true,
+    "use_alpha_as_mask":false,
+    "invert_mask":false,
+    "mask_file":"./input/mask.png"
+}
