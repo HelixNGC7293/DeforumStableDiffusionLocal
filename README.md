@@ -10,15 +10,15 @@ Local version of Deforum Stable Diffusion V0.4, supports txt settings file input
 - **Local Version by [DGSpitzer](https://www.youtube.com/channel/UCzzsYBF4qwtMwJaPJZ5SuPg) [大谷的游戏创作小屋](https://space.bilibili.com/176003)**
 - **Special Thanks to [VIVY Has A Dream](https://github.com/vivyhasadream) for all the help!**
 
-<p align="center">
+
 ![example](examples/example1.gif)
 ![example](examples/example2.gif)
-![example](examples/example3.gif)
+<p align="center">![example](examples/example3.gif)</p>
 
-**Animated Video**
+<p align="center">**Animated Video**</p>
 
 [![example video](https://img.youtube.com/vi/DCJm61yQ4_g/0.jpg)](https://www.youtube.com/watch?v=DCJm61yQ4_g)
-</p>
+
 
 Made this quick local Windows version mostly based on the Colab code by deforum, which supports very cool turbo mode animation output for Stable Diffusion!
 
