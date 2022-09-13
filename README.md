@@ -13,9 +13,9 @@ Local version of Deforum Stable Diffusion V0.4, supports txt settings file input
 
 ![example](examples/example1.gif)
 ![example](examples/example2.gif)
-<p align="center">![example](examples/example3.gif)</p>
+![example](examples/example3.gif)
 
-<p align="center">**Animated Video**</p>
+**👇Animated Video👇**
 
 [![example video](https://img.youtube.com/vi/DCJm61yQ4_g/0.jpg)](https://www.youtube.com/watch?v=DCJm61yQ4_g)
 
