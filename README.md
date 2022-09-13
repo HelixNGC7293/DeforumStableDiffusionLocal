@@ -10,7 +10,9 @@ Local version of Deforum Stable Diffusion V0.4, supports txt settings file input
 - **Local Version by [DGSpitzer](https://www.youtube.com/channel/UCzzsYBF4qwtMwJaPJZ5SuPg) [大谷的游戏创作小屋](https://space.bilibili.com/176003)**
 - **Special Thanks to VIVY Has A Dream for all the help!**
 
-![maskExample](examples/MaskExampleDisplay.png)
+![example](examples/example1.gif)
+![example](examples/example2.gif)
+![example](examples/example3.gif)
 
 Made this quick local Windows version mostly based on the Colab code by deforum.
 
@@ -53,6 +55,7 @@ python run.py --enable_animation_mode --settings "./examples/runSettings_Animati
 ```
 python run.py --settings "./examples/runSettings_Mask.txt"
 ```
+![example](examples/MaskExampleDisplay.png)
 
 All the needed variables are set in the txt file (You can refer to the [Colab](https://colab.research.google.com/github/deforum/stable-diffusion/blob/main/Deforum_Stable_Diffusion.ipynb) page for definition of all the variables), you can have many of settings files for different tasks. There is a template file called `runSettings_Template.txt`. You can create your own txt settings file as well.
 
