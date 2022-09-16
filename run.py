@@ -1160,7 +1160,7 @@ def main():
 
 	    if anim_args.interpolate_key_frames:
 	      for i in range(len(prompts_c_s)-1):
-	        dist_frames = list(animation_prompts.items())[i+1][0] - list(animation_prompts.items())[i][0]
+	        dist_frames = int(list(animation_prompts.items())[i+1][0]) - int(list(animation_prompts.items())[i][0])
 	        if dist_frames <= 0:
 	          print("key frames duplicated or reversed. interpolation skipped.")
 	          return
