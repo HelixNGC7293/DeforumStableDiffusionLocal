@@ -15,7 +15,6 @@
     "scale":7,
     "ddim_eta":0.0,
     "filename_format":"{timestring}_{index}_{prompt}.png",
-    "steps":50,
     "use_init":true,
     "init_image":"./input/EddyViolet by DGSpitzer.png",
     "strength":0.2,
