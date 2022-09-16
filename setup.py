@@ -10,6 +10,7 @@ if setup_environment:
     start_time = time.time()
     os.system("conda install git -y")
     os.system("conda install -c conda-forge opencv -y")
+    os.system("conda install -c conda-forge ffmpeg -y")
     print("Setting up environment part2...")
     all_process = [
         ['pip', 'install', 'torch==1.12.1+cu113', 'torchvision==0.13.1+cu113', '--extra-index-url', 'https://download.pytorch.org/whl/cu113'],

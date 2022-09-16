@@ -1297,7 +1297,7 @@ def main():
 	        '-preset', 'veryfast',
 	        mp4_path
 	    ]
-	    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	    process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 	    stdout, stderr = process.communicate()
 	    if process.returncode != 0:
 	        print(stderr)
