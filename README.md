@@ -68,7 +68,7 @@ python run.py --enable_animation_mode --settings "./runSettings_Template.txt" --
 ```
 
 After installation you can try out following examples to see if the code is working.
-You can also load customized dreambooth models by putting your model file into `./model` folder, and replace the `--model` parameter with the new model name.
+You can also load customized dreambooth models by putting your model file on the `./models` folder, and replace the `--model` parameter with the new model name.
 
 - 1. For generate still images:
 ```
