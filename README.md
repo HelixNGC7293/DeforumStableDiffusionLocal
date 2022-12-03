@@ -16,7 +16,7 @@ Local version of Deforum Stable Diffusion V0.6, supports txt settings file input
 
 :triangular_flag_on_post: **Updates**
 
-- :white_check_mark: 12/3/2022 Add supports for **Deforum V0.6**!!
+- :white_check_mark: 12/3/2022 Add support for **Deforum V0.6**!!
 
 
 ![example](examples/example1.gif)
@@ -66,7 +66,9 @@ The running command should looks like this:
 python run.py --enable_animation_mode --settings "./runSettings_Template.txt" --model "v1-5-pruned-emaonly.ckpt"
 ```
 
-After installation you can try out following examples to see if the code is working
+After installation you can try out following examples to see if the code is working.
+You can also load customized dreambooth models by putting your model file into `./model` folder, and replace the `--model` parameter with the new model name.
+
 - 1. For generate still images:
 ```
 python run.py --settings "./examples/runSettings_StillImages.txt"
