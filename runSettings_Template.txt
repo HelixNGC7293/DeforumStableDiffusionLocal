@@ -7,7 +7,7 @@
     ],
     "width":512,
     "height":512,
-    "seed":3521683325,
+    "seed":3521683327,
     "seed_behavior":"iter",
     "sampler":"dpmpp_2s_a",
     "steps":50,
@@ -50,12 +50,12 @@
     "clamp_stop":0.01,
     "cond_uncond_sync":true,
     "animation_prompts":{
-	"0":"full body portrait of a woman with short wavy hair, round face, cottagecore!!, lake water, intricate, enlightenment, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, art by artgerm and greg rutkowski and alphonse mucha",
-	"10":"beautiful amazing alien landscape with lush vegetation and colourful galaxy foreground, digital art, breathtaking, golden ratio, extremely detailed, hyper - detailed, establishing shot, hyperrealistic, cinematic lighting, particles, unreal engine, simon stalenhag, rendered by beeple, makoto shinkai, syd meade, kentaro miura, jean giraud, environment concept, artstation, octane render, 8k uhd image",
-	"20":"beautiful desolate city fill with giant flowers, moody :: by James Jean, Jeff Koons, Dan McPharlin Daniel Merrian :: ornate, dynamic, particulate, rich colors, intricate, elegant, highly detailed, centered, artstation, smooth, sharp focus, octane render, 3d"
+	"0":"portrait of a woman with short wavy hair, round face, cottagecore!!, lake water, intricate, enlightenment, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, art by artgerm and greg rutkowski and alphonse mucha",
+	"30":"beautiful amazing alien landscape with lush vegetation and colourful galaxy foreground, digital art, breathtaking, golden ratio, extremely detailed, hyper - detailed, establishing shot, hyperrealistic, cinematic lighting, particles, unreal engine, simon stalenhag, rendered by beeple, makoto shinkai, syd meade, kentaro miura, jean giraud, environment concept, artstation, octane render, 8k uhd image",
+	"60":"beautiful desolate city fill with giant flowers, moody :: by James Jean, Jeff Koons, Dan McPharlin Daniel Merrian :: ornate, dynamic, particulate, rich colors, intricate, elegant, highly detailed, centered, artstation, smooth, sharp focus, octane render, 3d"
     },
     "animation_mode":"3D",
-    "max_frames":100,
+    "max_frames":90,
     "diffusion_cadence":"3",
     "border":"warp",
     "angle":"0:(0)",
@@ -72,7 +72,7 @@
     "perspective_flip_gamma":"0:(0)",
     "perspective_flip_fv":"0:(53)",
     "noise_schedule":"0:(0.02)",
-    "strength_schedule":"0:(0.65)",
+    "strength_schedule":"0:(0.55)",
     "contrast_schedule":"0:(1.0)",
     "color_coherence":"Match Frame 0 LAB",
     "use_depth_warping":true,
@@ -91,5 +91,6 @@
     "interpolate_key_frames":false,
     "interpolate_x_frames":4,
     "resume_from_timestring":false,
-    "resume_timestring":"20220829210106"
+    "resume_timestring":"20220829210106",
+    "fps":12
 }

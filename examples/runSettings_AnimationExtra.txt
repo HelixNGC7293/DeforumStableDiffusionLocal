@@ -87,5 +87,6 @@
     "interpolate_key_frames":false,
     "interpolate_x_frames":4,
     "resume_from_timestring":false,
-    "resume_timestring":"20220829210106"
+    "resume_timestring":"20220829210106",
+    "fps":12
 }
