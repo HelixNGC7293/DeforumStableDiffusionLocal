@@ -52,12 +52,13 @@ python setup.py
 ```
 
 ## Manually download 3 Model Files
+**You need to put these 3 model files on the `./models` folder:**
 
-**You need to get the `v1-5-pruned-emaonly.ckpt` file and put it on the `./models` folder first to use this. It can be downloaded from [HuggingFace](https://huggingface.co/runwayml/stable-diffusion-v1-5/tree/main).**
+**`v1-5-pruned-emaonly.ckpt`, can be downloaded from [HuggingFace](https://huggingface.co/runwayml/stable-diffusion-v1-5/tree/main).**
 
-**Additionally, you should put `dpt_large-midas-2f21e586.pt` on the `./models` folder as well, [the download link is here](https://github.com/intel-isl/DPT/releases/download/1_0/dpt_large-midas-2f21e586.pt)**
+**`dpt_large-midas-2f21e586.pt`, [the download link is here](https://github.com/intel-isl/DPT/releases/download/1_0/dpt_large-midas-2f21e586.pt)**
 
-**There should be another extra file `AdaBins_nyu.pt` which should be downloaded into `./models` folder, [the download link is here](https://cloudflare-ipfs.com/ipfs/Qmd2mMnDLWePKmgfS8m6ntAg4nhV5VkUyAydYBp8cWWeB7/AdaBins_nyu.pt)**
+**`AdaBins_nyu.pt`, [the download link is here](https://cloudflare-ipfs.com/ipfs/Qmd2mMnDLWePKmgfS8m6ntAg4nhV5VkUyAydYBp8cWWeB7/AdaBins_nyu.pt)**
 
 
 ## How to use it?
