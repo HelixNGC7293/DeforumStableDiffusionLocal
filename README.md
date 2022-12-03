@@ -87,7 +87,7 @@ python run.py --enable_animation_mode --settings "./examples/runSettings_Animati
 ```
 
 ![example](examples/MaskExampleDisplay.png)
-[Original Painting on Artstation](https://www.artstation.com/artwork/yVyG3)
+[My Original Painting on Artstation](https://www.artstation.com/artwork/yVyG3)
 
 **The output results will be available at `./output` folder.**
 
