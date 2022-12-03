@@ -62,13 +62,16 @@ python setup.py
 
 
 ## How to use it?
+
+After installation, you can try out this command to see if the code is working.
 The running command should looks like this:
 ```
 python run.py --enable_animation_mode --settings "./runSettings_Template.txt" --model "v1-5-pruned-emaonly.ckpt"
 ```
 
-After installation you can try out following examples to see if the code is working.
 You can also load customized dreambooth models by putting your model file on the `./models` folder, and replace the `--model` parameter with the new model name.
+
+Here are some extra examples for your reference, you can create your own txt file based on these templates!
 
 - 1. For generate still images:
 ```
