@@ -134,5 +134,4 @@ dmypy.json
 *.pt
 
 # Deforum installed folder
-/deforum-stable-diffusion
 /output

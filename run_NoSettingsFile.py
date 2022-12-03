@@ -284,7 +284,7 @@ elif anim_args.animation_mode == 'Interpolation':
 else:
     render_image_batch(args, prompts, root)
 
-skip_video_for_run_all = True #@param {type: 'boolean'}
+skip_video_for_run_all = False #@param {type: 'boolean'}
 fps = 12 #@param {type:"number"}
 #@markdown **Manual Settings**
 use_manual_settings = False #@param {type:"boolean"}
