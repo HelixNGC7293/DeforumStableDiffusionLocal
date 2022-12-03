@@ -3,7 +3,8 @@
 [![Replicate](https://replicate.com/deforum/deforum_stable_diffusion/badge)](https://replicate.com/deforum/deforum_stable_diffusion)
 
 # Deforum Stable Diffusion Local Version
-Local version of Deforum Stable Diffusion V0.4, supports txt settings file input and animation features!
+Local version of Deforum Stable Diffusion V0.6, supports txt settings file input and animation features!
+
 
 - **[Stable Diffusion](https://github.com/CompVis/stable-diffusion) by Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, Björn Ommer and the [Stability.ai](https://stability.ai/) Team.**
 - **[K Diffusion](https://github.com/crowsonkb/k-diffusion) by [Katherine Crowson](https://twitter.com/RiversHaveWings).** 
@@ -13,8 +14,15 @@ Local version of Deforum Stable Diffusion V0.4, supports txt settings file input
 - **Special Thanks to [VIVY Has A Dream](https://github.com/vivyhasadream) for all the help!**
 
 
+:triangular_flag_on_post: **Updates**
+
+- :white_check_mark: 12/3/2022 Add supports for **Deforum V0.6**!!
+
+
 ![example](examples/example1.gif)
+
 ![example](examples/example2.gif)
+
 ![example](examples/example3.gif)
 
 **👇Animated Video👇**
@@ -45,17 +53,17 @@ python setup.py
 
 ## Manually download 3 Model Files
 
-**You need to get the `sd-v1-4.ckpt` file and put it on the `./models` folder first to use this. It can be downloaded from [HuggingFace](https://huggingface.co/CompVis/stable-diffusion).**
+**You need to get the `v1-5-pruned-emaonly.ckpt` file and put it on the `./models` folder first to use this. It can be downloaded from [HuggingFace](https://huggingface.co/runwayml/stable-diffusion-v1-5/tree/main).**
 
 **Additionally, you should put `dpt_large-midas-2f21e586.pt` on the `./models` folder as well, [the download link is here](https://github.com/intel-isl/DPT/releases/download/1_0/dpt_large-midas-2f21e586.pt)**
 
-**There should be another extra file `AdaBins_nyu.pt` which should be downloaded into `./pretrained` folder, [the download link is here](https://cloudflare-ipfs.com/ipfs/Qmd2mMnDLWePKmgfS8m6ntAg4nhV5VkUyAydYBp8cWWeB7/AdaBins_nyu.pt)**
+**There should be another extra file `AdaBins_nyu.pt` which should be downloaded into `./models` folder, [the download link is here](https://cloudflare-ipfs.com/ipfs/Qmd2mMnDLWePKmgfS8m6ntAg4nhV5VkUyAydYBp8cWWeB7/AdaBins_nyu.pt)**
 
 
 ## How to use it?
 The running command should looks like this:
 ```
-python run.py --enable_animation_mode --settings "./runSettings_Template.txt"
+python run.py --enable_animation_mode --settings "./runSettings_Template.txt" --model "v1-5-pruned-emaonly.ckpt"
 ```
 
 After installation you can try out following examples to see if the code is working
@@ -71,6 +79,11 @@ python run.py --enable_animation_mode --settings "./examples/runSettings_Animati
 ```
 python run.py --settings "./examples/runSettings_Mask.txt"
 ```
+- 4. For new feature of Deforum V0.6:
+```
+python run.py --enable_animation_mode --settings "./examples/runSettings_AnimationExtra.txt"
+```
+
 ![example](examples/MaskExampleDisplay.png)
 [Original Painting on Artstation](https://www.artstation.com/artwork/yVyG3)
 
