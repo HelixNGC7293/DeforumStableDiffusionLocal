@@ -22,7 +22,9 @@ if setup_environment:
         ['pip', 'install', 'pandas'],
         ['pip', 'install', 'scikit-image'],
         ['pip', 'uninstall', 'numpy', '-y'],
-        ['pip', 'install', '-U', 'numpy']
+        ['pip', 'install', '-U', 'numpy'],
+        ['pip', 'install', 'opencv-contrib-python'],
+        ['pip', 'install', 'numexpr']
     ]
     for process in all_process:
         running = subprocess.run(process,stdout=subprocess.PIPE).stdout.decode('utf-8')
