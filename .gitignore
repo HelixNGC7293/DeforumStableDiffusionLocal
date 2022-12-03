@@ -132,3 +132,6 @@ dmypy.json
 # Model file
 *.ckpt
 *.pt
+
+# Deforum installed folder
+/deforum-stable-diffusion

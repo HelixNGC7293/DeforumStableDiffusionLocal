@@ -2,10 +2,10 @@
 
 setup_environment = True #@param {type:"boolean"}
 print_subprocess = False #@param {type:"boolean"}
-use_xformers_for_colab = True
+use_xformers_for_colab = False
 
 if setup_environment:
-    import subprocess, time
+    import subprocess, time, sys
     import os
     print("Setting up environment...")
     start_time = time.time()
@@ -74,4 +74,4 @@ if setup_environment:
             if print_subprocess:
                 print(running)
 
-        print(f"Environment set up in {end_time-start_time:.0f} seconds")
+    print(f"Environment set up in {end_time-start_time:.0f} seconds")
