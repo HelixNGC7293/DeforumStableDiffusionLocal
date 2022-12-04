@@ -9,7 +9,7 @@
     "height":512,
     "seed":3521683327,
     "seed_behavior":"iter",
-    "sampler":"dpmpp_2s_a",
+    "sampler":"klms",
     "steps":50,
     "scale":7,
     "ddim_eta":0.0,
