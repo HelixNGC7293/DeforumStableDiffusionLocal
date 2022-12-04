@@ -2,7 +2,7 @@
 
 setup_environment = True #@param {type:"boolean"}
 print_subprocess = False #@param {type:"boolean"}
-use_xformers_for_colab = False
+use_xformers_for_colab = True
 
 if setup_environment:
     import subprocess, time, sys
@@ -23,6 +23,7 @@ if setup_environment:
         ['pip', 'uninstall', 'numpy', '-y'],
         ['pip', 'install', '-U', 'numpy'],
         ['pip', 'install', 'opencv-contrib-python'],
+        ['pip', 'install', 'numexpr'],
         ['pip', 'install', 'numexpr']
     ]
     for process in all_process:
@@ -42,11 +43,11 @@ if setup_environment:
 
         print("..installing xformers")
 
-        all_process = [['pip', 'install', 'triton==2.0.0.dev20220701']]
-        for process in all_process:
-            running = subprocess.run(process,stdout=subprocess.PIPE).stdout.decode('utf-8')
-            if print_subprocess:
-                print(running)
+        # all_process = [['pip', 'install', 'triton==2.0.0.dev20220701']]
+        # for process in all_process:
+            # running = subprocess.run(process,stdout=subprocess.PIPE).stdout.decode('utf-8')
+            # if print_subprocess:
+                # print(running)
                 
         v_card_name = subprocess.run(['nvidia-smi', '--query-gpu=name', '--format=csv,noheader'], stdout=subprocess.PIPE).stdout.decode('utf-8')
         if 't4' in v_card_name.lower():
@@ -58,17 +59,29 @@ if setup_environment:
         elif 'p100' in v_card_name.lower():
             name_to_download = 'P100'
         else:
-            print(v_card_name + ' is currently not supported with xformers flash attention in deforum!')
+            name_to_download = ''
+            print(v_card_name + ' Searching xformers flash attention wheel file for deforum!')
+        if name_to_download != '':
+            x_ver = 'xformers-0.0.13.dev0-py3-none-any.whl'
+            x_link = 'https://github.com/TheLastBen/fast-stable-diffusion/raw/main/precompiled/' + name_to_download + '/' + x_ver
 
-        x_ver = 'xformers-0.0.13.dev0-py3-none-any.whl'
-        x_link = 'https://github.com/TheLastBen/fast-stable-diffusion/raw/main/precompiled/' + name_to_download + '/' + x_ver
+            all_process = [
+                ['wget', x_link],
+                ['pip', 'install', x_ver],
+                ['mv', 'deforum-stable-diffusion/src/ldm/modules/attention.py', 'deforum-stable-diffusion/src/ldm/modules/attention_backup.py'],
+                ['mv', 'deforum-stable-diffusion/src/ldm/modules/attention_xformers.py', 'deforum-stable-diffusion/src/ldm/modules/attention.py']
+            ]
+        else:
+            x_ver = 'xformers-0.0.14.dev0-cp310-cp310-win_amd64.whl'
+            x_link = 'https://github.com/C43H66N12O12S2/stable-diffusion-webui/releases/download/f/' + x_ver
+
+            all_process = [
+                ['pip', 'install', x_link],
+                ['mv', 'deforum-stable-diffusion/src/ldm/modules/attention.py', 'deforum-stable-diffusion/src/ldm/modules/attention_backup.py'],
+                ['mv', 'deforum-stable-diffusion/src/ldm/modules/attention_xformers.py', 'deforum-stable-diffusion/src/ldm/modules/attention.py']
+            ]
+
     
-        all_process = [
-            ['wget', x_link],
-            ['pip', 'install', x_ver],
-            ['mv', 'deforum-stable-diffusion/src/ldm/modules/attention.py', 'deforum-stable-diffusion/src/ldm/modules/attention_backup.py'],
-            ['mv', 'deforum-stable-diffusion/src/ldm/modules/attention_xformers.py', 'deforum-stable-diffusion/src/ldm/modules/attention.py']
-        ]
 
         for process in all_process:
             running = subprocess.run(process,stdout=subprocess.PIPE).stdout.decode('utf-8')
