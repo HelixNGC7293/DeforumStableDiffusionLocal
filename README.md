@@ -41,7 +41,7 @@ It's tested working on Windows 10 with RTX 2080 SUPER and RTX 3090 GPU (it runs 
 You can use an [anaconda](https://conda.io/) environment to host this local project:
 
 ```
-conda create --name dsd python=3.8.5 -y
+conda create --name dsd python=3.10.6 -y
 conda activate dsd
 ```
 
