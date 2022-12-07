@@ -48,11 +48,11 @@
     "cond_uncond_sync":true,
     "animation_prompts":{
 	"0":"full body portrait of a woman with short wavy hair, round face, cottagecore!!, lake water, intricate, enlightenment, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, art by artgerm and greg rutkowski and alphonse mucha",
-	"10":"beautiful amazing alien landscape with lush vegetation and colourful galaxy foreground, digital art, breathtaking, golden ratio, extremely detailed, hyper - detailed, establishing shot, hyperrealistic, cinematic lighting, particles, unreal engine, simon stalenhag, rendered by beeple, makoto shinkai, syd meade, kentaro miura, jean giraud, environment concept, artstation, octane render, 8k uhd image",
-	"20":"beautiful desolate city fill with giant flowers, moody :: by James Jean, Jeff Koons, Dan McPharlin Daniel Merrian :: ornate, dynamic, particulate, rich colors, intricate, elegant, highly detailed, centered, artstation, smooth, sharp focus, octane render, 3d"
+	"50":"beautiful amazing alien landscape with lush vegetation and colourful galaxy foreground, digital art, breathtaking, golden ratio, extremely detailed, hyper - detailed, establishing shot, hyperrealistic, cinematic lighting, particles, unreal engine, simon stalenhag, rendered by beeple, makoto shinkai, syd meade, kentaro miura, jean giraud, environment concept, artstation, octane render, 8k uhd image",
+	"100":"beautiful desolate city fill with giant flowers, moody :: by James Jean, Jeff Koons, Dan McPharlin Daniel Merrian :: ornate, dynamic, particulate, rich colors, intricate, elegant, highly detailed, centered, artstation, smooth, sharp focus, octane render, 3d"
     },
     "animation_mode":"3D",
-    "max_frames":30,
+    "max_frames":150,
     "diffusion_cadence":"3",
     "border":"warp",
     "angle":"0:(0)",
@@ -89,5 +89,5 @@
     "interpolate_x_frames":4,
     "resume_from_timestring":false,
     "resume_timestring":"20220829210106",
-    "fps":12
+    "fps":24
 }

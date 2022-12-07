@@ -48,7 +48,7 @@
     "cond_uncond_sync":true,
     "animation_prompts":{
 	"0":"beautiful amazing alien landscape with lush vegetation and colourful galaxy foreground, digital art, breathtaking, golden ratio, extremely detailed, hyper - detailed, establishing shot, hyperrealistic, cinematic lighting, particles, unreal engine, simon stalenhag, rendered by beeple, makoto shinkai, syd meade, kentaro miura, jean giraud, environment concept, artstation, octane render, 8k uhd image",
-	"50":"beautiful desolate city fill with giant flowers, moody :: by James Jean, Jeff Koons, Dan McPharlin Daniel Merrian :: ornate, dynamic, particulate, rich colors, intricate, elegant, highly detailed, centered, artstation, smooth, sharp focus, octane render, 3d"
+	"50":"beautiful desolate city fill with giant flowers, moody, by James Jean, Jeff Koons, Dan McPharlin Daniel Merrian, ornate, dynamic, particulate, rich colors, intricate, elegant, highly detailed, centered, artstation, smooth, sharp focus, octane render, 3d"
     },
     "animation_mode":"3D",
     "max_frames":100,
