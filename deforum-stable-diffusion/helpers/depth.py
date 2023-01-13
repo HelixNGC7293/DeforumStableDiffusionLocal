@@ -14,6 +14,16 @@ from infer import InferenceHelper
 from midas.dpt_depth import DPTDepthModel
 from midas.transforms import Resize, NormalizeImage, PrepareForNet
 
+try:
+    from numpngw import write_png
+except ModuleNotFoundError:
+    print(ModuleNotFoundError)
+    import subprocess
+    running = subprocess.run(['pip', 'install', 'numpngw'],stdout=subprocess.PIPE).stdout.decode('utf-8')
+    print(running)
+    from numpngw import write_png
+
+from tqdm import tqdm
 
 def wget(url, outputdir):
     filename = url.split("/")[-1]
@@ -34,6 +44,33 @@ def wget(url, outputdir):
         model_file.write(ckpt_request.content)
 
 
+def download_file(url, models_path):
+    filename = url.split("/")[-1]
+
+    # Create the models_path directory if it does not exist
+    os.makedirs(models_path, exist_ok=True)
+    
+    # Send a GET request to the URL
+    response = requests.get(url, stream=True)
+    
+    # Get the total file size
+    file_size = int(response.headers.get("Content-Length"))
+    
+    # Open a file in binary mode to write the content
+    with open(os.path.join(models_path, filename), "wb") as f:
+        # Initialize the progress bar
+        pbar = tqdm(total=file_size, unit="B", unit_scale=True)
+        
+        # Iterate through the response data and write it to the file
+        for data in response.iter_content(1024):
+            f.write(data)
+            # Update the progress bar manually
+            pbar.update(len(data))
+        
+        # Close the progress bar
+        pbar.close()
+
+
 class DepthModel():
     def __init__(self, device):
         self.adabins_helper = None
@@ -45,15 +82,15 @@ class DepthModel():
     
     def load_adabins(self, models_path):
         if not os.path.exists(os.path.join(models_path,'AdaBins_nyu.pt')):
-            print("Downloading AdaBins_nyu.pt...")
+            print("..downloading AdaBins_nyu.pt")
             os.makedirs(models_path, exist_ok=True)
-            wget("https://cloudflare-ipfs.com/ipfs/Qmd2mMnDLWePKmgfS8m6ntAg4nhV5VkUyAydYBp8cWWeB7/AdaBins_nyu.pt", models_path)
+            download_file("https://huggingface.co/deforum/AdaBins/resolve/main/AdaBins_nyu.pt", models_path)
         self.adabins_helper = InferenceHelper(models_path, dataset='nyu', device=self.device)
 
     def load_midas(self, models_path, half_precision=True):
         if not os.path.exists(os.path.join(models_path, 'dpt_large-midas-2f21e586.pt')):
-            print("Downloading dpt_large-midas-2f21e586.pt...")
-            wget("https://github.com/intel-isl/DPT/releases/download/1_0/dpt_large-midas-2f21e586.pt", models_path)
+            print("..downloading dpt_large-midas-2f21e586.pt")
+            download_file("https://huggingface.co/deforum/MiDaS/resolve/main/dpt_large-midas-2f21e586.pt", models_path)
 
         self.midas_model = DPTDepthModel(
             path=os.path.join(models_path, "dpt_large-midas-2f21e586.pt"),
@@ -161,7 +198,7 @@ class DepthModel():
         
         return depth_tensor
 
-    def save(self, filename: str, depth: torch.Tensor):
+    def save(self, filename: str, depth: torch.Tensor, bit_depth_output):
         depth = depth.cpu().numpy()
         if len(depth.shape) == 2:
             depth = np.expand_dims(depth, axis=0)
@@ -169,7 +206,18 @@ class DepthModel():
         self.depth_max = max(self.depth_max, depth.max())
         print(f"  depth min:{depth.min()} max:{depth.max()}")
         denom = max(1e-8, self.depth_max - self.depth_min)
-        temp = rearrange((depth - self.depth_min) / denom * 255, 'c h w -> h w c')
-        temp = repeat(temp, 'h w 1 -> h w c', c=3)
-        Image.fromarray(temp.astype(np.uint8)).save(filename)    
+        denom_bitdepth_multiplier = {
+            8: 255,
+            16: 255 * 255,
+            32: 1 # This one is 1 because 32bpc is float32 and isn't converted to uint, like 8bpc and 16bpc are
+        }
+        temp_image = rearrange((depth - self.depth_min) / denom * denom_bitdepth_multiplier[bit_depth_output], 'c h w -> h w c')
+        temp_image = repeat(temp_image, 'h w 1 -> h w c', c=3)
+        if bit_depth_output == 16:
+            write_png(filename, temp_image.astype(np.uint16));
+        elif bit_depth_output == 32:
+            os.environ["OPENCV_IO_ENABLE_OPENEXR"]="1"
+            cv2.imwrite(filename.replace(".png", ".exr"), temp_image)
+        else: # 8 bit
+            Image.fromarray(temp_image.astype(np.uint8)).save(filename)
 

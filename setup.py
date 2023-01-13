@@ -24,7 +24,10 @@ if setup_environment:
         ['pip', 'install', '-U', 'numpy'],
         ['pip', 'install', 'opencv-contrib-python'],
         ['pip', 'install', 'numexpr'],
-        ['pip', 'install', 'numexpr']
+        ['pip', 'install', 'clean-fid'],
+        ['pip', 'install', 'torchsde'],
+        ['pip', 'install', 'numpngw'],
+        ['pip', 'install', 'open-clip-torch']
     ]
     for process in all_process:
         running = subprocess.run(process,stdout=subprocess.PIPE).stdout.decode('utf-8')
@@ -67,21 +70,19 @@ if setup_environment:
 
             all_process = [
                 ['wget', x_link],
-                ['pip', 'install', x_ver],
-                ['mv', 'deforum-stable-diffusion/src/ldm/modules/attention.py', 'deforum-stable-diffusion/src/ldm/modules/attention_backup.py'],
-                ['mv', 'deforum-stable-diffusion/src/ldm/modules/attention_xformers.py', 'deforum-stable-diffusion/src/ldm/modules/attention.py']
+                ['pip', 'install', x_ver]
             ]
         else:
             x_ver = 'xformers-0.0.14.dev0-cp310-cp310-win_amd64.whl'
             x_link = 'https://github.com/C43H66N12O12S2/stable-diffusion-webui/releases/download/f/' + x_ver
 
             all_process = [
-                ['pip', 'install', x_link],
-                ['mv', 'deforum-stable-diffusion/src/ldm/modules/attention.py', 'deforum-stable-diffusion/src/ldm/modules/attention_backup.py'],
-                ['mv', 'deforum-stable-diffusion/src/ldm/modules/attention_xformers.py', 'deforum-stable-diffusion/src/ldm/modules/attention.py']
+                ['pip', 'install', x_link]
             ]
 
     
+               # ['mv', 'deforum-stable-diffusion/src/ldm/modules/attention.py', 'deforum-stable-diffusion/src/ldm/modules/attention_backup.py'],
+               # ['mv', 'deforum-stable-diffusion/src/ldm/modules/attention_xformers.py', 'deforum-stable-diffusion/src/ldm/modules/attention.py']
 
         for process in all_process:
             running = subprocess.run(process,stdout=subprocess.PIPE).stdout.decode('utf-8')
