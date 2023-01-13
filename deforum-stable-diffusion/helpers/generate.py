@@ -7,7 +7,7 @@ from pytorch_lightning import seed_everything
 import os
 from ldm.models.diffusion.plms import PLMSSampler
 from ldm.models.diffusion.ddim import DDIMSampler
-from k_diffusion.external import CompVisDenoiser
+from k_diffusion.external import CompVisDenoiser, CompVisVDenoiser
 from torch import autocast
 from contextlib import nullcontext
 from einops import rearrange, repeat
@@ -31,7 +31,10 @@ def generate(args, root, frame = 0, return_latent=False, return_sample=False, re
     os.makedirs(args.outdir, exist_ok=True)
 
     sampler = PLMSSampler(root.model) if args.sampler == 'plms' else DDIMSampler(root.model)
-    model_wrap = CompVisDenoiser(root.model)
+    if root.model.parameterization == "v":
+        model_wrap = CompVisVDenoiser(root.model)
+    else:
+        model_wrap = CompVisDenoiser(root.model)
     batch_size = args.n_samples
     prompt = args.prompt
     assert prompt is not None
@@ -56,8 +59,8 @@ def generate(args, root, frame = 0, return_latent=False, return_sample=False, re
             init_latent = root.model.get_first_stage_encoding(root.model.encode_first_stage(init_image))  # move to latent space        
 
     if not args.use_init and args.strength > 0 and args.strength_0_no_init:
-        print("\nNo init image, but strength > 0. Strength has been auto set to 0, since use_init is False.")
-        print("If you want to force strength > 0 with no init, please set strength_0_no_init to False.\n")
+        #print("\nNo init image, but strength > 0. Strength has been auto set to 0, since use_init is False.")
+        #print("If you want to force strength > 0 with no init, please set strength_0_no_init to False.\n")
         args.strength = 0
 
     # Mask functions
@@ -102,7 +105,7 @@ def generate(args, root, frame = 0, return_latent=False, return_sample=False, re
     k_sigmas = k_sigmas[len(k_sigmas)-t_enc-1:]
 
     if args.sampler in ['plms','ddim']:
-        sampler.make_schedule(ddim_num_steps=args.steps, ddim_eta=args.ddim_eta, ddim_discretize='fill', verbose=False)
+        sampler.make_schedule(ddim_num_steps=args.steps, ddim_eta=args.ddim_eta, ddim_discretize='uniform', verbose=False)
 
     if args.colormatch_scale != 0:
         assert args.colormatch_image is not None, "If using color match loss, colormatch_image is needed"
@@ -262,7 +265,7 @@ def generate(args, root, frame = 0, return_latent=False, return_sample=False, re
                         else:
                             raise Exception("Cannot overlay the masked image without an init image to overlay")
 
-                        if args.mask_sample is None:
+                        if args.mask_sample is None or args.using_vid_init:
                             args.mask_sample = prepare_overlay_mask(args, root, img_original.shape)
 
                         x_samples = img_original * args.mask_sample + x_samples * ((args.mask_sample * -1.0) + 1)
@@ -276,7 +279,21 @@ def generate(args, root, frame = 0, return_latent=False, return_sample=False, re
                         results.append(c.clone())
 
                     for x_sample in x_samples:
-                        x_sample = 255. * rearrange(x_sample.cpu().numpy(), 'c h w -> h w c')
-                        image = Image.fromarray(x_sample.astype(np.uint8))
+                        def uint_number(datum, number):
+                            if number == 8:
+                                datum = Image.fromarray(datum.astype(np.uint8))
+                            elif number == 32:
+                                datum = datum.astype(np.float32)
+                            else:
+                                datum = datum.astype(np.uint16)
+                            return datum
+                        if args.bit_depth_output == 8:
+                            exponent_for_rearrange = 1
+                        elif args.bit_depth_output == 32:
+                            exponent_for_rearrange = 0
+                        else:
+                            exponent_for_rearrange = 2
+                        x_sample = 255.**exponent_for_rearrange * rearrange(x_sample.cpu().numpy(), 'c h w -> h w c')
+                        image = uint_number(x_sample, args.bit_depth_output)
                         results.append(image)
     return results

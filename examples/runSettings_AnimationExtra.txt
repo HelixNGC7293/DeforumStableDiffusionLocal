@@ -4,6 +4,7 @@
     "prompts":[],
     "width":512,
     "height":512,
+    "bit_depth_output":8,
     "seed":3521683325,
     "seed_behavior":"iter",
     "sampler":"dpmpp_2s_a",

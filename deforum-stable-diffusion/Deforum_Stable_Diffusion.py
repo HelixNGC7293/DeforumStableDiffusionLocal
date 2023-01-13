@@ -3,12 +3,10 @@
 # !!   "id": "ByGXyiHZWM_q"
 # !! }}
 """
-# **Deforum Stable Diffusion v0.6**
-[Stable Diffusion](https://github.com/CompVis/stable-diffusion) by Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, Björn Ommer and the [Stability.ai](https://stability.ai/) Team. [K Diffusion](https://github.com/crowsonkb/k-diffusion) by [Katherine Crowson](https://twitter.com/RiversHaveWings).
+# **Deforum Stable Diffusion v0.7**
+[Stable Diffusion](https://github.com/CompVis/stable-diffusion) by Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, Björn Ommer and the [Stability.ai](https://stability.ai/) Team. [K Diffusion](https://github.com/crowsonkb/k-diffusion) by [Katherine Crowson](https://twitter.com/RiversHaveWings). Notebook by [deforum](https://discord.gg/upmXXsrwZc)
 
-[Quick Guide](https://docs.google.com/document/d/1RrQv7FntzOuLg4ohjRZPVL7iptIyBhwwbcEYEW2OfcI/edit?usp=sharing) to Deforum v0.6
-
-Notebook by [deforum](https://discord.gg/upmXXsrwZc)
+[Quick Guide](https://docs.google.com/document/d/1RrQv7FntzOuLg4ohjRZPVL7iptIyBhwwbcEYEW2OfcI/edit?usp=sharing) to Deforum v0.7
 """
 
 # %%
@@ -32,12 +30,13 @@ print(f"{sub_p_res[:-1]}")
 # %%
 # !! {"metadata":{
 # !!   "cellView": "form",
-# !!   "id": "0D2HQO-PWM_t"
+# !!   "id": "vohUiWo-I2HQ"
 # !! }}
-
+#@markdown **Environment Setup**
 import subprocess, time, gc, os, sys
 
 def setup_environment():
+    start_time = time.time()
     print_subprocess = False
     use_xformers_for_colab = True
     try:
@@ -46,12 +45,12 @@ def setup_environment():
         ipy = 'could not get_ipython'
     if 'google.colab' in str(ipy):
         print("..setting up environment")
-        start_time = time.time()
+        
         all_process = [
             ['pip', 'install', 'torch==1.12.1+cu113', 'torchvision==0.13.1+cu113', '--extra-index-url', 'https://download.pytorch.org/whl/cu113'],
-            ['pip', 'install', 'omegaconf==2.2.3', 'einops==0.4.1', 'pytorch-lightning==1.7.4', 'torchmetrics==0.9.3', 'torchtext==0.13.1', 'transformers==4.21.2', 'kornia==0.6.7'],
+            ['pip', 'install', 'omegaconf==2.2.3', 'einops==0.4.1', 'pytorch-lightning==1.7.4', 'torchmetrics==0.9.3', 'torchtext==0.13.1', 'transformers==4.21.2', 'safetensors', 'kornia==0.6.7'],
             ['git', 'clone', 'https://github.com/deforum-art/deforum-stable-diffusion'],
-            ['pip', 'install', 'accelerate', 'ftfy', 'jsonmerge', 'matplotlib', 'resize-right', 'timm', 'torchdiffeq','scikit-learn'],
+            ['pip', 'install', 'accelerate', 'ftfy', 'jsonmerge', 'matplotlib', 'resize-right', 'timm', 'torchdiffeq','scikit-learn','torchsde','open-clip-torch','numpngw'],
         ]
         for process in all_process:
             running = subprocess.run(process,stdout=subprocess.PIPE).stdout.decode('utf-8')
@@ -63,8 +62,6 @@ def setup_environment():
             'deforum-stable-diffusion/',
             'deforum-stable-diffusion/src',
         ])
-        end_time = time.time()
-
         if use_xformers_for_colab:
 
             print("..installing xformers")
@@ -74,7 +71,7 @@ def setup_environment():
                 running = subprocess.run(process,stdout=subprocess.PIPE).stdout.decode('utf-8')
                 if print_subprocess:
                     print(running)
-                    
+
             v_card_name = subprocess.run(['nvidia-smi', '--query-gpu=name', '--format=csv,noheader'], stdout=subprocess.PIPE).stdout.decode('utf-8')
             if 't4' in v_card_name.lower():
                 name_to_download = 'T4'
@@ -84,29 +81,41 @@ def setup_environment():
                 name_to_download = 'A100'
             elif 'p100' in v_card_name.lower():
                 name_to_download = 'P100'
+            elif 'a4000' in v_card_name.lower():
+                name_to_download = 'Non-Colab/Paperspace/A4000'
+            elif 'p5000' in v_card_name.lower():
+                name_to_download = 'Non-Colab/Paperspace/P5000'
+            elif 'quadro m4000' in v_card_name.lower():
+                name_to_download = 'Non-Colab/Paperspace/Quadro M4000'
+            elif 'rtx 4000' in v_card_name.lower():
+                name_to_download = 'Non-Colab/Paperspace/RTX 4000'
+            elif 'rtx 5000' in v_card_name.lower():
+                name_to_download = 'Non-Colab/Paperspace/RTX 5000'
             else:
                 print(v_card_name + ' is currently not supported with xformers flash attention in deforum!')
 
-            x_ver = 'xformers-0.0.13.dev0-py3-none-any.whl'
+            if 'Non-Colab' in name_to_download:
+                x_ver = 'xformers-0.0.14.dev0-cp39-cp39-linux_x86_64.whl'
+            else:
+                x_ver = 'xformers-0.0.13.dev0-py3-none-any.whl'
+
             x_link = 'https://github.com/TheLastBen/fast-stable-diffusion/raw/main/precompiled/' + name_to_download + '/' + x_ver
-        
+
             all_process = [
-                ['wget', x_link],
+                ['wget', '--no-verbose', '--no-clobber', x_link],
                 ['pip', 'install', x_ver],
-                ['mv', 'deforum-stable-diffusion/src/ldm/modules/attention.py', 'deforum-stable-diffusion/src/ldm/modules/attention_backup.py'],
-                ['mv', 'deforum-stable-diffusion/src/ldm/modules/attention_xformers.py', 'deforum-stable-diffusion/src/ldm/modules/attention.py']
             ]
 
             for process in all_process:
                 running = subprocess.run(process,stdout=subprocess.PIPE).stdout.decode('utf-8')
                 if print_subprocess:
                     print(running)
-
-            print(f"Environment set up in {end_time-start_time:.0f} seconds")
     else:
         sys.path.extend([
             'src'
         ])
+    end_time = time.time()
+    print(f"..environment set up in {end_time-start_time:.0f} seconds")
     return
 
 setup_environment()
@@ -122,33 +131,33 @@ from helpers.render import render_animation, render_input_video, render_image_ba
 from helpers.model_load import make_linear_decode, load_model, get_model_output_paths
 from helpers.aesthetics import load_aesthetics_model
 
+# %%
+# !! {"metadata":{
+# !!   "cellView": "form",
+# !!   "id": "0D2HQO-PWM_t"
+# !! }}
 #@markdown **Path Setup**
 
 def Root():
     models_path = "models" #@param {type:"string"}
     configs_path = "configs" #@param {type:"string"}
-    output_path = "output" #@param {type:"string"}
+    output_path = "outputs" #@param {type:"string"}
     mount_google_drive = True #@param {type:"boolean"}
     models_path_gdrive = "/content/drive/MyDrive/AI/models" #@param {type:"string"}
     output_path_gdrive = "/content/drive/MyDrive/AI/StableDiffusion" #@param {type:"string"}
 
     #@markdown **Model Setup**
-    model_config = "v1-inference.yaml" #@param ["custom","v1-inference.yaml"]
-    model_checkpoint =  "v1-5-pruned-emaonly.ckpt" #@param ["custom","v1-5-pruned.ckpt","v1-5-pruned-emaonly.ckpt","sd-v1-4-full-ema.ckpt","sd-v1-4.ckpt","sd-v1-3-full-ema.ckpt","sd-v1-3.ckpt","sd-v1-2-full-ema.ckpt","sd-v1-2.ckpt","sd-v1-1-full-ema.ckpt","sd-v1-1.ckpt", "robo-diffusion-v1.ckpt","wd-v1-3-float16.ckpt"]
+    model_config = "v2-inference-v.yaml" #@param ["custom","v2-inference.yaml","v2-inference-v.yaml","v1-inference.yaml"]
+    model_checkpoint =  "v2-1_768-ema-pruned.ckpt" #@param ["custom","v2-1_768-ema-pruned.ckpt","v2-1_512-ema-pruned.ckpt","768-v-ema.ckpt","512-base-ema.ckpt","v1-5-pruned.ckpt","v1-5-pruned-emaonly.ckpt","sd-v1-4-full-ema.ckpt","sd-v1-4.ckpt","sd-v1-3-full-ema.ckpt","sd-v1-3.ckpt","sd-v1-2-full-ema.ckpt","sd-v1-2.ckpt","sd-v1-1-full-ema.ckpt","sd-v1-1.ckpt", "robo-diffusion-v1.ckpt","wd-v1-3-float16.ckpt"]
     custom_config_path = "" #@param {type:"string"}
     custom_checkpoint_path = "" #@param {type:"string"}
-    half_precision = True
     return locals()
 
 root = Root()
 root = SimpleNamespace(**root)
 
 root.models_path, root.output_path = get_model_output_paths(root)
-root.model, root.device = load_model(root, 
-                                    load_on_run_all=True
-                                    , 
-                                    check_sha256=True
-                                    )
+root.model, root.device = load_model(root, load_on_run_all=True, check_sha256=True)
 
 # %%
 # !! {"metadata":{
@@ -187,9 +196,21 @@ def DeforumAnimArgs():
     noise_schedule = "0: (0.02)"#@param {type:"string"}
     strength_schedule = "0: (0.65)"#@param {type:"string"}
     contrast_schedule = "0: (1.0)"#@param {type:"string"}
+    hybrid_video_comp_alpha_schedule = "0:(1)" #@param {type:"string"}
+    hybrid_video_comp_mask_blend_alpha_schedule = "0:(0.5)" #@param {type:"string"}
+    hybrid_video_comp_mask_contrast_schedule = "0:(1)" #@param {type:"string"}
+    hybrid_video_comp_mask_auto_contrast_cutoff_high_schedule =  "0:(100)" #@param {type:"string"}
+    hybrid_video_comp_mask_auto_contrast_cutoff_low_schedule =  "0:(0)" #@param {type:"string"}
+
+    #@markdown ####**Unsharp mask (anti-blur) Parameters:**
+    kernel_schedule = "0: (5)"#@param {type:"string"}
+    sigma_schedule = "0: (1.0)"#@param {type:"string"}
+    amount_schedule = "0: (0.2)"#@param {type:"string"}
+    threshold_schedule = "0: (0.0)"#@param {type:"string"}
 
     #@markdown ####**Coherence:**
-    color_coherence = 'Match Frame 0 LAB' #@param ['None', 'Match Frame 0 HSV', 'Match Frame 0 LAB', 'Match Frame 0 RGB'] {type:'string'}
+    color_coherence = 'Match Frame 0 LAB' #@param ['None', 'Match Frame 0 HSV', 'Match Frame 0 LAB', 'Match Frame 0 RGB', 'Video Input'] {type:'string'}
+    color_coherence_video_every_N_frames = 1 #@param {type:"integer"}
     diffusion_cadence = '1' #@param ['1','2','3','4','5','6','7','8'] {type:'string'}
 
     #@markdown ####**3D Depth Warping:**
@@ -208,6 +229,19 @@ def DeforumAnimArgs():
     overwrite_extracted_frames = True #@param {type:"boolean"}
     use_mask_video = False #@param {type:"boolean"}
     video_mask_path ='/content/video_in.mp4'#@param {type:"string"}
+
+    #@markdown ####**Hybrid Video for 2D/3D Animation Mode:**
+    hybrid_video_generate_inputframes = False #@param {type:"boolean"}
+    hybrid_video_use_first_frame_as_init_image = True #@param {type:"boolean"}
+    hybrid_video_motion = "None" #@param ['None','Optical Flow','Perspective','Affine']
+    hybrid_video_flow_method = "Farneback" #@param ['Farneback','DenseRLOF','SF']
+    hybrid_video_composite = False #@param {type:"boolean"}
+    hybrid_video_comp_mask_type = "None" #@param ['None', 'Depth', 'Video Depth', 'Blend', 'Difference']
+    hybrid_video_comp_mask_inverse = False #@param {type:"boolean"}
+    hybrid_video_comp_mask_equalize = "None" #@param  ['None','Before','After','Both']
+    hybrid_video_comp_mask_auto_contrast = False #@param {type:"boolean"}
+    hybrid_video_comp_save_extra_frames = False #@param {type:"boolean"}
+    hybrid_video_use_video_as_mse_image = False #@param {type:"boolean"}
 
     #@markdown ####**Interpolation:**
     interpolate_key_frames = False #@param {type:"boolean"}
@@ -251,9 +285,10 @@ custom_settings_file = "/content/drive/MyDrive/Settings.txt"#@param {type:"strin
 
 def DeforumArgs():
     #@markdown **Image Settings**
-    W = 512 #@param
-    H = 512 #@param
+    W = 768 #@param
+    H = 768 #@param
     W, H = map(lambda x: x - x % 64, (W, H))  # resize to integer multiple of 64
+    bit_depth_output = 8 #@param [8, 16, 32] {type:"raw"}
 
     #@markdown **Sampling Settings**
     seed = -1 #@param
@@ -280,14 +315,15 @@ def DeforumArgs():
     n_batch = 1 #@param
     batch_name = "StableFun" #@param {type:"string"}
     filename_format = "{timestring}_{index}_{prompt}.png" #@param ["{timestring}_{index}_{seed}.png","{timestring}_{index}_{prompt}.png"]
-    seed_behavior = "iter" #@param ["iter","fixed","random"]
+    seed_behavior = "iter" #@param ["iter","fixed","random","ladder","alternate"]
+    seed_iter_N = 1 #@param {type:'integer'}
     make_grid = False #@param {type:"boolean"}
     grid_rows = 2 #@param 
     outdir = get_output_folder(root.output_path, batch_name)
 
     #@markdown **Init Settings**
     use_init = False #@param {type:"boolean"}
-    strength = 0.0 #@param {type:"number"}
+    strength = 0.1 #@param {type:"number"}
     strength_0_no_init = True # Set the strength to 0 automatically when no init image is used
     init_image = "https://cdn.pixabay.com/photo/2022/07/30/13/10/green-longhorn-beetle-7353749_1280.jpg" #@param {type:"string"}
     # Whiter areas of the mask are areas that change more
@@ -353,6 +389,7 @@ def DeforumArgs():
     init_sample_raw = None
     mask_sample = None
     init_c = None
+    seed_internal = 0
 
     return locals()
 
@@ -420,11 +457,12 @@ skip_video_for_run_all = True #@param {type: 'boolean'}
 fps = 12 #@param {type:"number"}
 #@markdown **Manual Settings**
 use_manual_settings = False #@param {type:"boolean"}
-image_path = "/content/drive/MyDrive/AI/StableDiffusion/2022-09/20220903000939_%05d.png" #@param {type:"string"}
-mp4_path = "/content/drive/MyDrive/AI/StableDiffusion/2022-09/20220903000939.mp4" #@param {type:"string"}
+image_path = "/content/drive/MyDrive/AI/StableDiffusion/2023-01/StableFun/20230101212135_%05d.png" #@param {type:"string"}
+mp4_path = "/content/drive/MyDrive/AI/StableDiffusion/2023-01/StableFun/20230101212135.mp4" #@param {type:"string"}
 render_steps = False  #@param {type: 'boolean'}
 path_name_modifier = "x0_pred" #@param ["x0_pred","x"]
 make_gif = False
+bitdepth_extension = "exr" if args.bit_depth_output == 32 else "png"
 
 if skip_video_for_run_all == True:
     print('Skipping video creation, uncheck skip_video_for_run_all if you want to run it')
@@ -447,7 +485,7 @@ else:
             mp4_path = os.path.join(newest_dir, f"{args.timestring}_{path_name_modifier}.mp4")
             max_frames = str(args.steps)
         else: # render images for a video
-            image_path = os.path.join(args.outdir, f"{args.timestring}_%05d.png")
+            image_path = os.path.join(args.outdir, f"{args.timestring}_%05d.{bitdepth_extension}")
             mp4_path = os.path.join(args.outdir, f"{args.timestring}.mp4")
             max_frames = str(anim_args.max_frames)
 
@@ -455,7 +493,7 @@ else:
     cmd = [
         'ffmpeg',
         '-y',
-        '-vcodec', 'png',
+        '-vcodec', bitdepth_extension,
         '-r', str(fps),
         '-start_number', str(0),
         '-i', image_path,
@@ -505,6 +543,11 @@ else:
 
 # %%
 # !! {"main_metadata":{
+# !!   "accelerator": "GPU",
+# !!   "colab": {
+# !!     "provenance": []
+# !!   },
+# !!   "gpuClass": "standard",
 # !!   "kernelspec": {
 # !!     "display_name": "Python 3.10.6 ('dsd')",
 # !!     "language": "python",
@@ -527,10 +570,5 @@ else:
 # !!     "interpreter": {
 # !!       "hash": "b7e04c8a9537645cbc77fa0cbde8069bc94e341b0d5ced104651213865b24e58"
 # !!     }
-# !!   },
-# !!   "colab": {
-# !!     "provenance": []
-# !!   },
-# !!   "accelerator": "GPU",
-# !!   "gpuClass": "standard"
+# !!   }
 # !! }}

@@ -7,6 +7,7 @@
     ],
     "width":512,
     "height":512,
+    "bit_depth_output":8,
     "seed":3521683328,
     "seed_behavior":"iter",
     "sampler":"klms",
@@ -55,8 +56,8 @@
 	"60":"beautiful desolate city fill with giant flowers, moody :: by James Jean, Jeff Koons, Dan McPharlin Daniel Merrian :: ornate, dynamic, particulate, rich colors, intricate, elegant, highly detailed, centered, artstation, smooth, sharp focus, octane render, 3d"
     },
     "animation_mode":"3D",
-    "max_frames":90,
-    "diffusion_cadence":"3",
+    "max_frames":240,
+    "diffusion_cadence":"8",
     "border":"warp",
     "angle":"0:(0)",
     "zoom":"0:(1.04)",
@@ -92,5 +93,5 @@
     "interpolate_x_frames":4,
     "resume_from_timestring":false,
     "resume_timestring":"20220829210106",
-    "fps":12
+    "fps":24
 }
