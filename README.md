@@ -3,7 +3,7 @@
 [![Replicate](https://replicate.com/deforum/deforum_stable_diffusion/badge)](https://replicate.com/deforum/deforum_stable_diffusion)
 
 # Deforum Stable Diffusion Local Version
-Local version of Deforum Stable Diffusion V0.6, supports txt settings file input and animation features!
+Local version of Deforum Stable Diffusion V0.7, supports txt settings file input and animation features!
 
 
 - **[Stable Diffusion](https://github.com/CompVis/stable-diffusion) by Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, Björn Ommer and the [Stability.ai](https://stability.ai/) Team.**
@@ -16,7 +16,7 @@ Local version of Deforum Stable Diffusion V0.6, supports txt settings file input
 
 :triangular_flag_on_post: **Updates**
 
-- :white_check_mark: 12/3/2022 Add support for **Deforum V0.6**!!
+- :white_check_mark: 1/12/2023 Add support for **Deforum V0.7**!!
 
 
 ![example](examples/example1.gif)
@@ -85,7 +85,7 @@ python run.py --enable_animation_mode --settings "./examples/runSettings_Animati
 ```
 python run.py --settings "./examples/runSettings_Mask.txt"
 ```
-- 4. For new feature of Deforum V0.6:
+- 4. For new feature of Deforum V0.7:
 ```
 python run.py --enable_animation_mode --settings "./examples/runSettings_AnimationExtra.txt"
 ```
