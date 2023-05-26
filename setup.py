@@ -89,4 +89,4 @@ if setup_environment:
             if print_subprocess:
                 print(running)
 
-    print(f"Environment set up in {end_time-start_time:.0f} seconds")
+    printf("Environment set up in {end_time-start_time:.0f} seconds")
